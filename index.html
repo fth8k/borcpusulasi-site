@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Borç Pusulası: Kredi &amp; Evim | Borcunun gerçek maliyetini gör</title>
+<meta name="description" content="Kredi, KMH, Evim Sistemi ve kredi kartı borcunun gerçek maliyetini hesapla, takip et ve karşılaştır. KKDF, BSMV ve peşin masraflar dahil.">
+<link rel="canonical" href="https://borcpusulasi.com/">
+<meta name="apple-itunes-app" content="app-id=6811901426">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Borç Pusulası: Kredi &amp; Evim">
+<meta property="og:description" content="Borcunun gerçek maliyetini gör. Kredi, KMH, Evim Sistemi ve kredi kartı hesaplayıcıları tek uygulamada.">
+<meta property="og:image" content="https://borcpusulasi.com/img/og.jpg">
+<meta property="og:url" content="https://borcpusulasi.com/">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="theme-color" content="#1E5FE0">
+<style>
+  @font-face { font-family: 'Outfit'; src: url(fonts/Outfit_700Bold.ttf) format('truetype'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url(fonts/Outfit_800ExtraBold.ttf) format('truetype'); font-weight: 800; font-display: swap; }
+  @font-face { font-family: 'Jakarta'; src: url(fonts/PlusJakartaSans_400Regular.ttf) format('truetype'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Jakarta'; src: url(fonts/PlusJakartaSans_600SemiBold.ttf) format('truetype'); font-weight: 600; font-display: swap; }
+  @font-face { font-family: 'Jakarta'; src: url(fonts/PlusJakartaSans_700Bold.ttf) format('truetype'); font-weight: 700; font-display: swap; }
+
+  :root {
+    --bg: #FAF9F6;
+    --surface: #FFFFFF;
+    --ink: #191A23;
+    --ink-soft: #5B5E6B;
+    --blue: #1E5FE0;
+    --blue-soft: #E4EFF9;
+    --gold: #F2A93B;
+    --gold-ink: #A95F08;
+    --gold-soft: #F6E4B9;
+    --line: #E3E1DA;
+    --radius: 20px;
+    --hero-text: #FFFFFF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121212;
+      --surface: #1A1A1A;
+      --ink: #FFFFFF;
+      --ink-soft: #A8A8A8;
+      --blue: #3F7CE8;
+      --blue-soft: #1F2C45;
+      --gold-ink: #F2A93B;
+      --gold-soft: #3A2F18;
+      --line: #2B2B2B;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Jakarta', -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--blue); }
+  img { max-width: 100%; display: block; }
+  .wrap { width: min(1080px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: 'Outfit', 'Jakarta', sans-serif; line-height: 1.12; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+
+  header.top { padding-block: 22px; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; }
+  .brand img { width: 44px; height: 44px; border-radius: 11px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--blue); color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 17px; padding: 14px 24px; border-radius: 16px;
+    border: 2.5px solid var(--blue);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(30, 95, 224, 0.28); }
+  .btn:focus-visible, a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .btn.small { padding: 9px 18px; font-size: 15px; border-radius: 13px; }
+
+  .hero { padding-block: clamp(28px, 6vw, 72px) clamp(40px, 7vw, 88px); }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(28px, 5vw, 64px); align-items: center; }
+  .eyebrow { font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-ink); margin: 0 0 14px; }
+  .hero h1 { font-size: clamp(38px, 6.4vw, 66px); font-weight: 800; }
+  .hero h1 em { font-style: normal; color: var(--blue); }
+  .lead { font-size: clamp(18px, 2.2vw, 21px); color: var(--ink-soft); margin: 20px 0 30px; max-width: 34em; }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+  .cta-note { color: var(--ink-soft); font-size: 15px; }
+  .hero-shot { justify-self: center; width: min(100%, 300px); }
+  .hero-shot .shot { aspect-ratio: 560 / 760; }
+  .hero-shot .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .shot {
+    border-radius: 28px; overflow: hidden; border: 2.5px solid var(--ink);
+    box-shadow: 0 30px 60px -20px rgba(25, 26, 35, .35); background: var(--surface);
+  }
+
+  section.block { padding-block: clamp(36px, 6vw, 72px); }
+  .block h2 { font-size: clamp(30px, 4.6vw, 44px); font-weight: 800; }
+  .block .sub { color: var(--ink-soft); margin: 14px 0 0; max-width: 40em; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 235px), 1fr)); gap: 18px; margin-top: 32px; }
+  .card { background: var(--surface); border: 2.5px solid var(--blue); border-radius: var(--radius); padding: 22px 22px 24px; }
+  .card.gold { border-color: var(--gold); }
+  .card h3 { font-size: 22px; font-weight: 700; }
+  .card p { margin: 10px 0 0; color: var(--ink-soft); font-size: 16px; }
+  .chip { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px; letter-spacing: .02em; }
+  .chip.free { background: var(--blue-soft); color: var(--blue); }
+  .chip.premium { background: var(--gold-soft); color: var(--gold-ink); }
+
+  .strip { display: flex; gap: 20px; overflow-x: auto; padding: 8px 4px 22px; margin-top: 28px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .strip figure { margin: 0; flex: 0 0 min(72vw, 280px); scroll-snap-align: start; }
+  .strip .shot { border-radius: 22px; border-width: 2px; }
+
+  .trust { background: var(--surface); border-block: 1px solid var(--line); }
+  .trust .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 28px; margin-top: 28px; }
+  .trust h3 { font-size: 20px; font-weight: 700; }
+  .trust p { margin: 8px 0 0; color: var(--ink-soft); font-size: 16px; }
+
+  .final { text-align: center; }
+  .final .btn { margin-top: 26px; }
+
+  footer { padding-block: 40px 56px; color: var(--ink-soft); font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  footer a { color: var(--ink-soft); }
+  footer a:hover { color: var(--blue); }
+  .legal { width: 100%; font-size: 13.5px; margin: 0; }
+
+  @media (max-width: 820px) {
+    .hero .wrap { grid-template-columns: 1fr; }
+    .hero-shot { order: -1; width: min(70%, 260px); }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Borç Pusulası ana sayfa"><img src="img/icon-112.png" alt="" width="44" height="44">Borç Pusulası</a>
+    <a class="btn small" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr">İndir</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Kredi · KMH · Evim · Kredi kartı</p>
+        <h1>Borcunun <em>gerçek</em> maliyetini gör.</h1>
+        <p class="lead">Bankanın söylediği aylık faiz değil, KKDF, BSMV ve peşin masraflar dahil gerçek yıllık maliyet. Hesapla, karşılaştır, kaydet, takip et.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr">App Store'dan indir</a>
+          <span class="cta-note">iPhone için · Ücretsiz başla</span>
+        </div>
+      </div>
+      <div class="hero-shot">
+        <div class="shot"><img src="img/ana-sayfa.jpg" alt="Borç Pusulası ana sayfa: toplam kalan borç, yaklaşan ödeme ve kredi kartı hesaplayıcı" width="560" height="1212"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="ozellikler">
+    <div class="wrap">
+      <h2>Tek uygulamada, rakamlarla.</h2>
+      <p class="sub">Duygu ya da banka pazarlamasıyla değil, gerçek hesapla karar ver. Girdiğin sayılara göre çalışır, bankana bağlanmaz.</p>
+      <div class="grid">
+        <article class="card">
+          <span class="chip free">Ücretsiz</span>
+          <h3>Gerçek yıllık maliyet</h3>
+          <p>KKDF, BSMV ve tahsis ücreti dahil yıllık maliyet oranını (YMO) hesapla. Sigortalı kredide sigorta dahil maliyeti ve eline geçen tutarı gör.</p>
+        </article>
+        <article class="card">
+          <span class="chip free">Ücretsiz</span>
+          <h3>Ödeme planı</h3>
+          <p>Taksit taksit anapara, faiz ve kalan bakiyeyi bankalardaki gibi bir tabloda incele. Geç ya da ara ödeme yaparsan ne olacağını hesapla.</p>
+        </article>
+        <article class="card">
+          <span class="chip premium">Premium</span>
+          <h3>KMH faizi</h3>
+          <p>Kredili Mevduat Hesabı bakiyeni kaç gün kullanırsan ne kadar faiz, KKDF ve BSMV çıkacağını önceden gör.</p>
+        </article>
+        <article class="card">
+          <span class="chip premium">Premium</span>
+          <h3>Kredi kartı borcun ne olur?</h3>
+          <p>Her ay asgari ya da sabit bir tutar ödersen, seçtiğin sürenin sonunda borcunun ne kalacağını ve toplam faizi hesapla.</p>
+        </article>
+        <article class="card gold">
+          <span class="chip premium">Premium</span>
+          <h3>Evim Sistemi</h3>
+          <p>Faizsiz konut ve taşıt finansman planlarının bugünün parasıyla gerçek maliyetini hesapla, kendin biriktirmenle karşılaştır.</p>
+        </article>
+        <article class="card gold">
+          <span class="chip premium">Premium</span>
+          <h3>Kredi mi, Evim mi?</h3>
+          <p>İkisini bugünün parasıyla yan yana koy, hangisinin gerçekten avantajlı olduğunu net TL olarak gör.</p>
+        </article>
+        <article class="card">
+          <span class="chip free">Ücretsiz + Premium</span>
+          <h3>Takip ve hatırlatma</h3>
+          <p>Kredi, KMH ve Evim'lerini kaydet, kalan borcunu ve bugün kapatsan ödeyeceğin tutarı gör. Ödeme gününden önce, kira ve okul taksiti gibi ödemeler için de hatırlatma al.</p>
+        </article>
+        <article class="card">
+          <span class="chip free">Ücretsiz + Premium</span>
+          <h3>Biriktirsem, Param ne kadar olurdu?</h3>
+          <p>Küçük bir tutarı biriktirsen yıllar içinde ne olur? Geçmişte altına, dövize ya da mevduata yatırsaydın bugün ne kadar olurdu?</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="ekranlar">
+    <div class="wrap">
+      <h2 id="ekranlar">Ekranlardan</h2>
+      <div class="strip" tabindex="0" aria-label="Uygulama ekran görüntüleri, yana kaydır">
+        <figure><div class="shot"><img src="img/gercek-maliyet.jpg" alt="Kredinin gerçek yıllık maliyeti ekranı" loading="lazy" width="560" height="1212"></div></figure>
+        <figure><div class="shot"><img src="img/karsilastir.jpg" alt="Karşılaştır ekranı: iki seçeneği bugünün parasıyla karşılaştır" loading="lazy" width="560" height="1212"></div></figure>
+        <figure><div class="shot"><img src="img/takip.jpg" alt="Takip ekranı: tüm borçların güncel durumu" loading="lazy" width="560" height="1212"></div></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block trust">
+    <div class="wrap">
+      <h2>Açık sözlü olalım.</h2>
+      <div class="cols">
+        <div>
+          <h3>Banka değiliz</h3>
+          <p>Hiçbir kredi, finansman ya da yatırım ürünü satmaz, önermez ve aracılık etmeyiz. Bankanla ya da bir kurumla bağlantı kurmaz, sadece senin girdiğin sayılarla hesaplarız.</p>
+        </div>
+        <div>
+          <h3>Tahmindir, tavsiye değildir</h3>
+          <p>Sonuçlar girdiğin varsayımlara dayanır; bankanın gerçekte uyguladığı oran ve tutarlar farklı olabilir. Kesin tutarı bankandan teyit etmelisin.</p>
+        </div>
+        <div>
+          <h3>Verin sende</h3>
+          <p>Hesap için yalnızca e-posta adresin yeterli; ad-soyad, T.C. kimlik numarası ya da telefon istemeyiz. Hesabını uygulamadan istediğin zaman silebilirsin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block final">
+    <div class="wrap">
+      <h2>Borcunun gerçek maliyetini şimdi gör.</h2>
+      <a class="btn" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr">App Store'dan indir</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Borç Pusulası</span>
+    <nav aria-label="Alt menü">
+      <a href="https://claude.ai/artifact/Ud27AEp3GAXpCrn95LmPSC">Gizlilik Politikası</a>
+      <a href="https://claude.ai/artifact/JeQ589xa5E4oLW7HAzRbuU">Kullanım Koşulları</a>
+      <a href="mailto:borcpusulasi@gmail.com">borcpusulasi@gmail.com</a>
+    </nav>
+    <p class="legal">Borç Pusulası bir hesaplama ve planlama aracıdır; yatırım danışmanlığı ya da finansal tavsiye sunmaz. Apple ve App Store, Apple Inc.'in tescilli markalarıdır.</p>
+  </div>
+</footer>
+
+</body>
+</html>
