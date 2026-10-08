@@ -128,6 +128,14 @@
 
   .final { text-align: center; }
   .final .btn { margin-top: 26px; }
+  .final-grid { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; text-align: left; }
+  .qr { margin: 0; text-align: center; }
+  .qr img { width: 180px; height: 180px; border-radius: 22px; border: 2.5px solid var(--blue); }
+  .qr figcaption { margin-top: 12px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.4; }
+  @media (max-width: 700px) {
+    .final-grid { grid-template-columns: 1fr; text-align: center; }
+    .qr { display: none; } /* telefondan bakan kişi kendi ekranını okutamaz */
+  }
 
   footer { padding-block: 40px 56px; color: var(--ink-soft); font-size: 15px; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
@@ -254,9 +262,15 @@
   </section>
 
   <section class="block final">
-    <div class="wrap">
-      <h2>Borcunun gerçek maliyetini şimdi gör.</h2>
-      <a class="btn" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr">App Store'dan indir</a>
+    <div class="wrap final-grid">
+      <div>
+        <h2>Borcunun gerçek maliyetini şimdi gör.</h2>
+        <a class="btn" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr">App Store'dan indir</a>
+      </div>
+      <figure class="qr">
+        <img src="img/qr-app-store.jpg" alt="Borç Pusulası'nı App Store'da açan QR kodu" width="400" height="400" loading="lazy">
+        <figcaption>Bilgisayardan mı bakıyorsun?<br>Telefonunun kamerasıyla okut.</figcaption>
+      </figure>
     </div>
   </section>
 </main>
