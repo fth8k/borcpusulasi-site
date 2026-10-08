@@ -65,6 +65,7 @@
   a { color: var(--blue); }
   img { max-width: 100%; display: block; }
   .wrap { width: min(1080px, 100% - 40px); margin-inline: auto; }
+  .wrap.wide { width: min(1320px, 100% - 40px); }
   h1, h2, h3 { font-family: 'Outfit', 'Jakarta', sans-serif; line-height: 1.12; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
 
   header.top { padding-block: 22px; }
@@ -113,7 +114,7 @@
 
   .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 28px; }
   .shots figure { margin: 0; }
-  .shots .shot { border-radius: 22px; border-width: 2px; }
+  .shots .shot { display: block; border-radius: 22px; border-width: 2px; }
   @media (max-width: 900px) { .shots { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) {
     .shots { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding: 6px 2px 18px; -webkit-overflow-scrolling: touch; }
@@ -164,7 +165,7 @@
         </div>
       </div>
       <div class="hero-shot">
-        <div class="shot"><img src="img/ana-sayfa.jpg" alt="Borç Pusulası ana sayfa: toplam kalan borç, yaklaşan ödeme ve kredi kartı hesaplayıcı" width="800" height="1731"></div>
+        <div class="shot"><img src="img/ana-sayfa.jpg" alt="Borç Pusulası ana sayfa: toplam kalan borç, yaklaşan ödeme ve kredi kartı hesaplayıcı" width="1284" height="2778"></div>
       </div>
     </div>
   </section>
@@ -219,13 +220,13 @@
   </section>
 
   <section class="block" aria-labelledby="ekranlar">
-    <div class="wrap">
+    <div class="wrap wide">
       <h2 id="ekranlar">Ekranlardan</h2>
       <div class="shots">
-        <figure><div class="shot"><img src="img/gercek-maliyet.jpg" alt="Kredinin gerçek yıllık maliyeti ekranı" loading="lazy" width="800" height="1731"></div></figure>
-        <figure><div class="shot"><img src="img/karsilastir.jpg" alt="Karşılaştır ekranı: iki seçeneği bugünün parasıyla karşılaştır" loading="lazy" width="800" height="1731"></div></figure>
-        <figure><div class="shot"><img src="img/param.jpg" alt="Param ne kadar olurdu ekranı: geçmiş getiri hesabı" loading="lazy" width="800" height="1731"></div></figure>
-        <figure><div class="shot"><img src="img/biriktirsem.jpg" alt="Biriktirsem ne olur ekranı: bileşik getiriyle birikim" loading="lazy" width="800" height="1731"></div></figure>
+        <figure><a class="shot" href="img/gercek-maliyet.jpg" target="_blank" rel="noopener"><img src="img/gercek-maliyet.jpg" alt="Kredinin gerçek yıllık maliyeti ekranı" loading="lazy" width="1284" height="2778"></a></figure>
+        <figure><a class="shot" href="img/karsilastir.jpg" target="_blank" rel="noopener"><img src="img/karsilastir.jpg" alt="Karşılaştır ekranı: iki seçeneği bugünün parasıyla karşılaştır" loading="lazy" width="1284" height="2778"></a></figure>
+        <figure><a class="shot" href="img/param.jpg" target="_blank" rel="noopener"><img src="img/param.jpg" alt="Param ne kadar olurdu ekranı: geçmiş getiri hesabı" loading="lazy" width="1284" height="2778"></a></figure>
+        <figure><a class="shot" href="img/biriktirsem.jpg" target="_blank" rel="noopener"><img src="img/biriktirsem.jpg" alt="Biriktirsem ne olur ekranı: bileşik getiriyle birikim" loading="lazy" width="1284" height="2778"></a></figure>
       </div>
     </div>
   </section>
