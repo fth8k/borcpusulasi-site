@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biriktirsem ne olur? Günlük, haftalık, aylık birikim hesaplama | Borç Pusulası</title>
+<meta name="description" content="Günlük, haftalık ya da aylık biriktirdiğin küçük tutarın bileşik getiriyle 1, 3, 5 ve 10 yıl sonra ne kadar olacağını hesapla. Grafik ve yıl yıl tablo.">
+<link rel="canonical" href="https://borcpusulasi.com/biriktirsem-ne-olur/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Biriktirsem ne olur? Birikim hesaplama">
+<meta property="og:description" content="Günlük, haftalık ya da aylık biriktirdiğin küçük tutarın bileşik getiriyle 1, 3, 5 ve 10 yıl sonra ne kadar olacağını hesapla. Grafik ve yıl yıl tablo.">
+<meta property="og:url" content="https://borcpusulasi.com/biriktirsem-ne-olur/">
+<meta property="og:image" content="https://borcpusulasi.com/img/share.jpg">
+<meta property="og:locale" content="tr_TR">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="theme-color" content="#1E5FE0">
+<link rel="stylesheet" href="/css/tools.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Küçük tutarlar gerçekten fark yaratır mı?","acceptedAnswer":{"@type":"Answer","text":"Evet. Düzenli birikim ve bileşik getiri zamanla etkisini büyütür: ilk yıllarda birikimin çoğu kendi koyduğun paradır, süre uzadıkça getirinin payı artar. Süreyi 1 yıldan 10 yıla çıkarıp farkı kendin görebilirsin."}},{"@type":"Question","name":"Net getiri oranı ne demek?","acceptedAnswer":{"@type":"Answer","text":"Yatırım aracının stopaj gibi kesintiler düşüldükten sonra eline geçen yıllık getirisidir. Brüt oran girersen sonuç olduğundan yüksek çıkar."}},{"@type":"Question","name":"Neden nominal oran kullanılıyor?","acceptedAnswer":{"@type":"Answer","text":"Türkiye'de mevduat gibi araçların faizi piyasada yıllık nominal (basit) oran olarak ilan edilir. Bu yüzden girdiğin oran dönem sayısına bölünerek uygulanır; efektif yıllık oran varsayılmaz."}},{"@type":"Question","name":"Enflasyon hesaba katıldı mı?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Sonuç, nominal (bugünkü TL ile yazılan) tutarlardır. Birikimin gelecekteki satın alma gücü için enflasyonu ayrıca düşünmelisin."}},{"@type":"Question","name":"Bu bir yatırım tavsiyesi mi?","acceptedAnswer":{"@type":"Answer","text":"Hayır. Bu sayfa, girdiğin varsayımlarla ne olacağını gösteren basit bir hesaplayıcıdır."}}]}</script>
+<script data-goatcounter="https://borcpusulasi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="top"><div class="wrap"><a class="brand" href="/"><img src="/img/icon-112.png" alt="" width="32" height="32">Borç Pusulası</a><a class="get" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr" data-goatcounter-click="top-biriktirsem-ne-olur" data-goatcounter-title="İndir (biriktirsem-ne-olur)">İndir</a></div></div>
+<main>
+  <div class="wrap">
+    <p class="kicker">Birikim hesaplama</p>
+    <h1>Günde 100 TL biriktirsem ne olur?</h1>
+    <p class="lead">Her gün, hafta ya da ay ayırabileceğin tutarı gir. Bileşik getiriyle 1, 3, 5 ve 10 yıl sonra ne kadar birikeceğini gör.</p>
+
+    <form class="tool" id="f" onsubmit="return false" novalidate>
+      <div class="fields">
+        <div class="full">
+          <label id="lPer">Ne sıklıkla biriktiriyorsun?</label>
+          <div class="seg" id="per" role="group" aria-labelledby="lPer">
+            <button type="button" data-v="daily" aria-pressed="true">Günlük</button>
+            <button type="button" data-v="weekly" aria-pressed="false">Haftalık</button>
+            <button type="button" data-v="monthly" aria-pressed="false">Aylık</button>
+          </div>
+        </div>
+        <div>
+          <label for="amt" id="amtL">Günlük tutar (TL)</label>
+          <input id="amt" type="text" inputmode="numeric" autocomplete="off" value="100">
+        </div>
+        <div>
+          <label id="lYr">Süre</label>
+          <div class="seg" id="yr" role="group" aria-labelledby="lYr">
+            <button type="button" data-v="1" aria-pressed="false">1 yıl</button>
+            <button type="button" data-v="3" aria-pressed="true">3 yıl</button>
+            <button type="button" data-v="5" aria-pressed="false">5 yıl</button>
+            <button type="button" data-v="10" aria-pressed="false">10 yıl</button>
+          </div>
+        </div>
+        <div>
+          <label for="ret">Yıllık getiri oranı, net (%)</label>
+          <input id="ret" type="text" inputmode="decimal" autocomplete="off" value="30">
+          <span class="hint">Yıllık nominal oran; stopaj gibi kesintileri düşülmüş halini gir.</span>
+        </div>
+        <div>
+          <label for="gro">Tutarın yıllık artışı (%, isteğe bağlı)</label>
+          <input id="gro" type="text" inputmode="decimal" autocomplete="off" placeholder="0">
+          <span class="hint">Maaş zammıyla biriktirdiğin tutar da artıyorsa.</span>
+        </div>
+      </div>
+      <button class="btn calc" type="submit">Birikimi hesapla</button>
+      <p class="err" id="err" role="alert"></p>
+      <p class="note" style="margin:8px 0 0">Sayfa örnek değerlerle açılır; kendi tutarını ve oranını gir.</p>
+    </form>
+
+    <div class="result" id="res">
+      <div class="answer">
+        <p class="lbl" id="aLbl"></p>
+        <p class="big" id="aBig"></p>
+        <p id="aSub"></p>
+      </div>
+      <div class="kv" id="kv"></div>
+
+      <h2>Birikimin yıllara göre büyümesi</h2>
+      <svg class="chart" id="chart" role="img" aria-label="Birikimin yıllara göre büyümesi grafiği"></svg>
+      <div class="legend"><span><i style="background:var(--blue)"></i>Toplam birikim</span><span><i style="background:var(--gold)"></i>Kendi biriktirdiğin</span></div>
+
+      <h2>Yıl yıl</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Yıl sonu</th><th>Biriktirdiğin</th><th>Getiri</th><th>Toplam</th></tr></thead>
+          <tbody id="yrows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2>Nasıl hesaplanır?</h2>
+    <p>Her gün, hafta ya da ay sonunda biriktirdiğin tutar hesabına eklenir; önceki birikim de o dönemin getirisini kazanır. Yıllık nominal getiri, dönem sayısına bölünüp bileşik uygulanır:</p>
+    <div class="formula">Dönem getirisi = yıllık getiri ÷ yılda dönem sayısı (365 / 52 / 12)<br>Bakiye = önceki bakiye × (1 + dönem getirisi) + dönem sonunda eklenen tutar</div>
+    <p>"Tutarın yıllık artışı"nı doldurursan, her tam yıl geçtiğinde biriktirdiğin tutar bu oranda artar (örneğin maaşına zam gelince daha fazla ayırman gibi).</p>
+    <p class="note">Bu basit bir simülasyondur; getirinin her dönem aynı kalacağı varsayılır. Gerçek getiri seçtiğin yatırım aracına ve piyasaya göre değişir.</p>
+
+    <h2>Sık sorulanlar</h2>
+    <p><strong>Küçük tutarlar gerçekten fark yaratır mı?</strong><br>Evet. Düzenli birikim ve bileşik getiri zamanla etkisini büyütür: ilk yıllarda birikimin çoğu kendi koyduğun paradır, süre uzadıkça getirinin payı artar. Süreyi 1 yıldan 10 yıla çıkarıp farkı kendin görebilirsin.</p>
+    <p><strong>Net getiri oranı ne demek?</strong><br>Yatırım aracının stopaj gibi kesintiler düşüldükten sonra eline geçen yıllık getirisidir. Brüt oran girersen sonuç olduğundan yüksek çıkar.</p>
+    <p><strong>Neden nominal oran kullanılıyor?</strong><br>Türkiye'de mevduat gibi araçların faizi piyasada yıllık nominal (basit) oran olarak ilan edilir. Bu yüzden girdiğin oran dönem sayısına bölünerek uygulanır; efektif yıllık oran varsayılmaz.</p>
+    <p><strong>Enflasyon hesaba katıldı mı?</strong><br>Hayır. Sonuç, nominal (bugünkü TL ile yazılan) tutarlardır. Birikimin gelecekteki satın alma gücü için enflasyonu ayrıca düşünmelisin.</p>
+    <p><strong>Bu bir yatırım tavsiyesi mi?</strong><br>Hayır. Bu sayfa, girdiğin varsayımlarla ne olacağını gösteren basit bir hesaplayıcıdır.</p>
+
+    <div class="cta">
+      <h2>Hedefini uygulamada takip et</h2>
+      <p>Borç Pusulası'nda birikimi kredi ve Evim Sistemi ile kıyaslayabilir, "Param ne kadar olurdu?" aracıyla geçmiş getirilere bakabilirsin.</p>
+      <a class="btn" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr" data-goatcounter-click="cta-biriktirsem-ne-olur" data-goatcounter-title="App Store (biriktirsem-ne-olur)">App Store'dan indir</a>
+    </div>
+
+    <h2>Diğer hesaplayıcılar</h2>
+    <div class="related">
+        <a href="/kredi-hesaplama/">Kredi hesaplama</a>
+        <a href="/gayrimenkul-satis-vergisi/">Gayrimenkul satış vergisi</a>
+        <a href="/ortalama-kredi-faizleri/">Ortalama kredi faizleri</a>
+    </div>
+
+    <p class="legal">Bu sayfa bilgilendirme amaçlıdır; yatırım tavsiyesi değildir. Gerçek getiri, seçtiğin yatırım aracına ve piyasa koşullarına göre değişir; girilen oranların her dönem aynı kalacağı varsayılır.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Borç Pusulası</span>
+    <a href="/gizlilik/">Gizlilik Politikası</a>
+    <a href="/kosullar/">Kullanım Koşulları</a>
+    <a href="mailto:borcpusulasi@gmail.com">borcpusulasi@gmail.com</a>
+  </div>
+</footer>
+<script src="/js/tools.js"></script>
+<script>
+(function () {
+  var $ = BP.byId, period = 'daily', years = 3;
+  BP.money($('amt'));
+  var LABEL = { daily: 'Günlük tutar (TL)', weekly: 'Haftalık tutar (TL)', monthly: 'Aylık tutar (TL)' };
+  var PER_TXT = { daily: 'gün', weekly: 'hafta', monthly: 'ay' };
+  BP.seg($('per'), function (v) { period = v; $('amtL').textContent = LABEL[v]; calc(); });
+  BP.seg($('yr'), function (v) { years = Number(v); calc(); });
+  function row(k, v, cls) { return '<div' + (cls ? ' class="' + cls + '"' : '') + '><span class="k">' + k + '</span><span class="v">' + v + '</span></div>'; }
+  function calc() {
+    var amt = BP.num($('amt').value), ret = BP.num($('ret').value), gro = BP.num($('gro').value) || 0;
+    var err = $('err'), res = $('res'); err.textContent = '';
+    if (!(amt > 0) || !(ret >= 0)) { res.classList.remove('on'); err.textContent = 'Tutarı ve yıllık getiri oranını gir.'; return; }
+    if (ret > 500 || gro > 500) { res.classList.remove('on'); err.textContent = 'Oranlar çok yüksek görünüyor.'; return; }
+    var R = BP.accumulate(amt, period, ret, gro, years);
+    $('aLbl').textContent = years + ' yıl sonra yaklaşık';
+    $('aBig').textContent = BP.tl(R.futureValue);
+    $('aSub').textContent = 'Her ' + PER_TXT[period] + ' ' + BP.tl(amt) + ' biriktirirsen.';
+    $('kv').innerHTML = row('Kendi biriktirdiğin', BP.tl(R.contributed)) + row('Getiri', '+' + BP.tl(R.growth)) + row('Toplam', BP.tl(R.futureValue), 'tot');
+    var tot = R.series.map(function (p) { return [p.year, p.balance]; }), own = R.series.map(function (p) { return [p.year, p.contributed]; });
+    BP.lineChart($('chart'), [{ color: 'var(--blue)', points: tot }, { color: 'var(--gold)', points: own }], {
+      yMin: 0,
+      yFmt: function (v) { return v >= 1e6 ? BP.fmt(v / 1e6, 1) + ' Mn' : v >= 1e3 ? BP.fmt(v / 1e3, 0) + ' bin' : BP.fmt(v, 0); },
+      xTicks: function (a, b) { var t = []; for (var y = 0; y <= b; y += b > 5 ? 2 : 1) t.push({ x: y, label: y + '. yıl' }); return t; }
+    });
+    $('yrows').innerHTML = R.series.filter(function (p) { return p.year >= 1 && p.year === Math.floor(p.year); }).map(function (p) {
+      return '<tr><td>' + p.year + '. yıl</td><td>' + BP.fmt(p.contributed) + '</td><td>' + BP.fmt(p.balance - p.contributed) + '</td><td>' + BP.fmt(p.balance) + '</td></tr>';
+    }).join('');
+    res.classList.add('on');
+  }
+  $('f').addEventListener('submit', function () { calc(); $('res').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  ['amt', 'ret', 'gro'].forEach(function (id) { $(id).addEventListener('input', function () { if ($('res').classList.contains('on')) calc(); }); });
+  calc();
+})();
+</script>
+</body>
+</html>

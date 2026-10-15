@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kredi hesaplama: aylık taksit, toplam geri ödeme ve gerçek maliyet | Borç Pusulası</title>
+<meta name="description" content="Kredi tutarı, aylık faiz ve vadeyi gir; KKDF ve BSMV dahil aylık taksidi, toplam geri ödemeyi, yıllık maliyet oranını (YMO) ve ödeme planını gör.">
+<link rel="canonical" href="https://borcpusulasi.com/kredi-hesaplama/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kredi hesaplama: taksit ve gerçek maliyet">
+<meta property="og:description" content="Kredi tutarı, aylık faiz ve vadeyi gir; KKDF ve BSMV dahil aylık taksidi, toplam geri ödemeyi, yıllık maliyet oranını (YMO) ve ödeme planını gör.">
+<meta property="og:url" content="https://borcpusulasi.com/kredi-hesaplama/">
+<meta property="og:image" content="https://borcpusulasi.com/img/share.jpg">
+<meta property="og:locale" content="tr_TR">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<meta name="theme-color" content="#1E5FE0">
+<link rel="stylesheet" href="/css/tools.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"KKDF ve BSMV nedir?","acceptedAnswer":{"@type":"Answer","text":"Tüketici kredilerinde faiz üzerinden alınan iki vergidir: Kaynak Kullanımı Destekleme Fonu (KKDF) ve Banka ve Sigorta Muameleleri Vergisi (BSMV). Taksitler bu vergiler eklenmiş oranla hesaplanır, bu yüzden bankanın söylediği faizden yüksek bir maliyet çıkar."}},{"@type":"Question","name":"Bankanın söylediği faizle buradaki sonuç neden farklı olabilir?","acceptedAnswer":{"@type":"Answer","text":"Bankalar tahsis ücreti, sigorta ve dosya masrafı gibi kalemleri ayrıca alabilir; bunları \"Masraflar\" bölümüne girersen sonuç netleşir. Kesin tutar için bankanın kredi sözleşmesindeki ödeme planına bak."}},{"@type":"Question","name":"Aylık faiz yerine yıllık faiz biliyorsam ne yapmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Yıllık basit (nominal) faizi 12'ye bölerek aylığa çevirebilirsin. TCMB'nin yayımladığı ortalamalar yıllık efektif orandır; aylığa çevrilmiş halini ortalama kredi faizleri sayfasında bulabilirsin."}},{"@type":"Question","name":"Konut kredisinde neden vergi yok?","acceptedAnswer":{"@type":"Answer","text":"Konut kredilerinde faiz üzerinden KKDF ve BSMV alınmaz. Tahsis ücretinden ise BSMV hâlâ kesilir. Bu hesaplayıcı \"Konut\" seçildiğinde vergileri bu şekilde alır."}},{"@type":"Question","name":"Ödeme planındaki \"faiz + vergi\" ne demek?","acceptedAnswer":{"@type":"Answer","text":"Her taksitin, borcun o ayki bakiyesine işleyen kısmıdır (faiz ve onun üzerindeki vergiler). Taksidin kalanı anaparayı azaltır. Başta faiz payı yüksek, sona doğru düşer."}}]}</script>
+<script data-goatcounter="https://borcpusulasi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="top"><div class="wrap"><a class="brand" href="/"><img src="/img/icon-112.png" alt="" width="32" height="32">Borç Pusulası</a><a class="get" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr" data-goatcounter-click="top-kredi-hesaplama" data-goatcounter-title="İndir (kredi-hesaplama)">İndir</a></div></div>
+<main>
+  <div class="wrap">
+    <p class="kicker">Kredi hesaplama</p>
+    <h1>Kredi taksidin ve gerçek maliyeti ne kadar?</h1>
+    <p class="lead">Kredi tutarını, aylık faizi ve vadeyi gir. KKDF ve BSMV dahil taksidi, toplam geri ödemeyi ve kredinin yıllık maliyetini gör.</p>
+
+    <form class="tool" id="f" onsubmit="return false" novalidate>
+      <div class="fields">
+        <div class="full">
+          <label id="lType">Kredi türü</label>
+          <div class="seg" id="type" role="group" aria-labelledby="lType">
+            <button type="button" data-v="ihtiyac" aria-pressed="true">İhtiyaç / Taşıt</button>
+            <button type="button" data-v="konut" aria-pressed="false">Konut</button>
+          </div>
+          <span class="hint" id="typeHint">Faiz üzerinden KKDF ve BSMV eklenir.</span>
+        </div>
+        <div>
+          <label for="principal">Kredi tutarı (TL)</label>
+          <input id="principal" type="text" inputmode="numeric" autocomplete="off" value="100.000">
+        </div>
+        <div>
+          <label for="term">Vade (ay)</label>
+          <input id="term" type="text" inputmode="numeric" autocomplete="off" value="24">
+        </div>
+        <div class="full">
+          <label for="rate">Aylık faiz oranı (%)</label>
+          <input id="rate" type="text" inputmode="decimal" autocomplete="off" value="3,29">
+          <span class="hint" id="rateHint">Bankanın sana söylediği aylık faiz. Yıllık basit faiz söylediyse 12'ye bölerek aylığa çevirebilirsin.</span>
+        </div>
+      </div>
+      <details class="adv">
+        <summary>Masraflar (isteğe bağlı)</summary>
+        <div class="fields">
+          <div>
+            <label for="fee">Tahsis ücreti (TL)</label>
+            <input id="fee" type="text" inputmode="decimal" data-dec="1" autocomplete="off" placeholder="0">
+            <span class="hint"><label style="display:inline;font-weight:400;font-size:12.5px"><input id="autoFee" type="checkbox"> Otomatik: tutarın binde 5'i + BSMV</label></span>
+          </div>
+          <div>
+            <label for="ins">Sigorta (TL)</label>
+            <input id="ins" type="text" inputmode="decimal" data-dec="1" autocomplete="off" placeholder="0">
+            <span class="hint">Krediye bağlı, peşin ödenen sigorta.</span>
+          </div>
+        </div>
+      </details>
+      <button class="btn calc" id="go" type="submit">Hesapla</button>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+
+    <div class="result" id="res">
+      <div class="answer">
+        <p class="lbl" id="aLbl"></p>
+        <p class="big" id="aBig"></p>
+        <p id="aSub"></p>
+      </div>
+      <div class="kv" id="kv"></div>
+      <p class="note" style="margin-top:10px" id="rateNote"></p>
+
+      <h2>Ödeme planı</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Ay</th><th>Taksit</th><th>Anapara</th><th>Faiz + vergi</th><th>Kalan borç</th></tr></thead>
+          <tbody id="sched"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2>Nasıl hesaplanır?</h2>
+    <p>Bankalar, girdiğin aylık faize <strong>KKDF</strong> ve <strong>BSMV</strong> vergilerini ekler ve sabit taksitli (eşit taksitli) bir plan çıkarır. Taksit bu vergili oran üzerinden hesaplanır:</p>
+    <div class="formula">Vergili aylık oran = faiz × (1 + KKDF + BSMV)<br>Taksit = tutar × oran ÷ (1 − (1 + oran)<sup>−vade</sup>)</div>
+    <p>Şu an KKDF <strong><span id="kkdfTxt">%15</span></strong>, BSMV <strong><span id="bsmvTxt">%15</span></strong>. Konut kredilerinde faizden bu vergiler alınmaz; tahsis ücretindeki BSMV ise konutta da alınır. Hesaplayıcı bunu "Konut" seçeneğinde otomatik yapar.</p>
+    <p><strong>Yıllık maliyet oranı (YMO)</strong>, faiz, vergiler ve tahsis ücreti dahil kredinin gerçek yıllık bileşik maliyetidir. Sigorta zorunlu olmadığı için bankalar YMO'ya genelde katmaz; sigorta girersen "sigorta dahil" maliyeti ayrıca gösteririz.</p>
+
+    <h2>Örnek</h2>
+    <p>100.000 TL, 24 ay, aylık %3,29 faizli bir ihtiyaç kredisinde faiz üzerine %15 KKDF ve %15 BSMV eklenince vergili oran yaklaşık %4,28 olur. Aylık taksit yaklaşık 6.746 TL, toplam geri ödeme yaklaşık 161.900 TL çıkar. Yani 100.000 TL için yaklaşık 61.900 TL faiz ve vergi ödersin.</p>
+
+    <h2>Sık sorulanlar</h2>
+    <p><strong>KKDF ve BSMV nedir?</strong><br>Tüketici kredilerinde faiz üzerinden alınan iki vergidir: Kaynak Kullanımı Destekleme Fonu (KKDF) ve Banka ve Sigorta Muameleleri Vergisi (BSMV). Taksitler bu vergiler eklenmiş oranla hesaplanır, bu yüzden bankanın söylediği faizden yüksek bir maliyet çıkar.</p>
+    <p><strong>Bankanın söylediği faizle buradaki sonuç neden farklı olabilir?</strong><br>Bankalar tahsis ücreti, sigorta ve dosya masrafı gibi kalemleri ayrıca alabilir; bunları "Masraflar" bölümüne girersen sonuç netleşir. Kesin tutar için bankanın kredi sözleşmesindeki ödeme planına bak.</p>
+    <p><strong>Aylık faiz yerine yıllık faiz biliyorsam ne yapmalıyım?</strong><br>Yıllık basit (nominal) faizi 12'ye bölerek aylığa çevirebilirsin. TCMB'nin yayımladığı ortalamalar yıllık efektif orandır; aylığa çevrilmiş halini <a href="/ortalama-kredi-faizleri/">ortalama kredi faizleri</a> sayfasında bulabilirsin.</p>
+    <p><strong>Konut kredisinde neden vergi yok?</strong><br>Konut kredilerinde faiz üzerinden KKDF ve BSMV alınmaz. Tahsis ücretinden ise BSMV hâlâ kesilir. Bu hesaplayıcı "Konut" seçildiğinde vergileri bu şekilde alır.</p>
+    <p><strong>Ödeme planındaki "faiz + vergi" ne demek?</strong><br>Her taksitin, borcun o ayki bakiyesine işleyen kısmıdır (faiz ve onun üzerindeki vergiler). Taksidin kalanı anaparayı azaltır. Başta faiz payı yüksek, sona doğru düşer.</p>
+
+    <div class="cta">
+      <h2>Kredini takip et, gerçek maliyetini gör</h2>
+      <p>Borç Pusulası uygulamasında kredini kaydedip taksit günlerini hatırlatma alabilir, erken kapama tutarını görebilir, ara ödemenin etkisini hesaplayabilir ve iki krediyi yan yana karşılaştırabilirsin.</p>
+      <a class="btn" href="https://apps.apple.com/tr/app/bor%C3%A7-pusulas%C4%B1-kredi-evim/id6811901426?l=tr" data-goatcounter-click="cta-kredi-hesaplama" data-goatcounter-title="App Store (kredi-hesaplama)">App Store'dan indir</a>
+    </div>
+
+    <h2>Diğer hesaplayıcılar</h2>
+    <div class="related">
+        <a href="/gayrimenkul-satis-vergisi/">Gayrimenkul satış vergisi</a>
+        <a href="/biriktirsem-ne-olur/">Biriktirsem ne olur?</a>
+        <a href="/ortalama-kredi-faizleri/">Ortalama kredi faizleri</a>
+    </div>
+
+    <p class="legal">Bu sayfa bilgilendirme amaçlıdır; finansal tavsiye değildir. Sonuçlar tahmindir. Bankanın uyguladığı faiz, masraf ve vergiler farklı olabilir; kredi sözleşmesindeki ödeme planı esastır.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <span>© 2026 Borç Pusulası</span>
+    <a href="/gizlilik/">Gizlilik Politikası</a>
+    <a href="/kosullar/">Kullanım Koşulları</a>
+    <a href="mailto:borcpusulasi@gmail.com">borcpusulasi@gmail.com</a>
+  </div>
+</footer>
+<script src="/js/tools.js"></script>
+<script>
+(function () {
+  var $ = BP.byId, type = 'ihtiyac', rates = { kkdf: 15, bsmv: 15 };
+  ['principal', 'fee', 'ins'].forEach(function (id) { BP.money($(id)); });
+  var q = new URLSearchParams(location.search);
+  if (q.get('tutar')) $('principal').value = BP.fmt(BP.num(q.get('tutar')) || 100000);
+  if (q.get('faiz')) $('rate').value = String(q.get('faiz')).replace('.', ',');
+  if (q.get('vade')) $('term').value = q.get('vade');
+  function setType(v) {
+    type = v;
+    document.querySelectorAll('#type button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === v ? 'true' : 'false'); });
+    $('typeHint').textContent = v === 'konut' ? 'Konut kredisinde faiz üzerinden KKDF ve BSMV alınmaz.' : 'Faiz üzerinden KKDF ve BSMV eklenir.';
+  }
+  BP.seg($('type'), function (v) { setType(v); calc(); });
+  if (q.get('tur') === 'konut') setType('konut');
+
+  function syncFee() {
+    var on = $('autoFee').checked, p = BP.num($('principal').value);
+    $('fee').disabled = on;
+    if (on && p > 0) $('fee').value = BP.fmt(Math.round(p * 0.005 * (1 + rates.bsmv / 100) * 100) / 100, 2).replace(/,00$/, '');
+  }
+  $('autoFee').addEventListener('change', function () { if (!$('autoFee').checked) $('fee').value = ''; syncFee(); calc(); });
+  $('principal').addEventListener('input', syncFee);
+
+  function row(k, v, cls) { return '<div' + (cls ? ' class="' + cls + '"' : '') + '><span class="k">' + k + '</span><span class="v">' + v + '</span></div>'; }
+
+  function calc() {
+    var p = BP.num($('principal').value), r = BP.num($('rate').value), n = BP.num($('term').value);
+    var fee = BP.num($('fee').value) || 0, ins = BP.num($('ins').value) || 0;
+    var err = $('err'), res = $('res');
+    err.textContent = '';
+    if (!(p > 0) || !(r > 0) || !(n >= 1)) { res.classList.remove('on'); err.textContent = 'Kredi tutarı, aylık faiz ve vadeyi doldur.'; return; }
+    if (n !== Math.floor(n) || n > 360) { res.classList.remove('on'); err.textContent = 'Vade 1 ile 360 ay arasında tam sayı olmalı.'; return; }
+    if (r > 30) { res.classList.remove('on'); err.textContent = 'Aylık faiz oranı çok yüksek görünüyor. Yıllık oran girdiysen 12\'ye bölerek aylığa çevir.'; return; }
+    if (fee + ins >= p) { res.classList.remove('on'); err.textContent = 'Masraflar kredi tutarından küçük olmalı.'; return; }
+    var k = type === 'konut' ? 0 : rates.kkdf, b = type === 'konut' ? 0 : rates.bsmv;
+    var L = BP.loan({ principal: p, monthlyRatePercent: r, termMonths: n, kkdfPercent: k, bsmvPercent: b, originationFee: fee, insuranceFee: ins });
+    $('aLbl').textContent = 'Aylık taksit';
+    $('aBig').textContent = BP.tl(L.installment, 2);
+    $('aSub').textContent = n + ' ay boyunca, toplam ' + BP.tl(L.total) + ' geri ödersin.';
+    var h = '';
+    h += row('Çekilen kredi', BP.tl(p));
+    h += row('Toplam geri ödeme', BP.tl(L.total));
+    h += row('Toplam faiz', BP.tl(L.interest));
+    if (k + b > 0) h += row('Faiz üzerindeki KKDF + BSMV', BP.tl(L.taxes));
+    if (L.upfront > 0) h += row('Peşin masraflar (tahsis + sigorta)', BP.tl(L.upfront));
+    if (L.upfront > 0) h += row('Elinize geçen', BP.tl(L.net));
+    h += row('Toplam maliyet (faiz + vergi + masraf)', BP.tl(L.cashCost + L.upfront), 'tot');
+    h += row('Vergili aylık oran', BP.pct(L.taxInclMonthlyPercent));
+    h += row('Yıllık maliyet oranı (YMO)', BP.pct(L.ymoAnnual));
+    if (ins > 0) h += row('Sigorta dahil gerçek yıllık maliyet', BP.pct(L.effectiveAnnual));
+    $('kv').innerHTML = h;
+    $('rateNote').textContent = 'KKDF %' + BP.fmt(k, 0) + ', BSMV %' + BP.fmt(b, 0) + ' alındı. Sonuç tahmindir; kesin tutar için bankanın ödeme planına bak.';
+    $('sched').innerHTML = L.rows.map(function (x) {
+      return '<tr><td>' + x.m + '</td><td>' + BP.fmt(x.inst, 2) + '</td><td>' + BP.fmt(x.principal, 2) + '</td><td>' + BP.fmt(x.charge, 2) + '</td><td>' + BP.fmt(x.balance, 2) + '</td></tr>';
+    }).join('');
+    res.classList.add('on');
+  }
+
+  $('f').addEventListener('submit', function () { calc(); $('res').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  ['principal', 'rate', 'term', 'fee', 'ins'].forEach(function (id) { $(id).addEventListener('input', function () { if ($('res').classList.contains('on')) calc(); }); });
+
+  calc();
+  BP.data().then(function (d) {
+    rates = { kkdf: d.kkdfPercent, bsmv: d.bsmvPercent };
+    $('kkdfTxt').textContent = '%' + BP.fmt(d.kkdfPercent, 0);
+    $('bsmvTxt').textContent = '%' + BP.fmt(d.bsmvPercent, 0);
+    var last = d.creditRates.ihtiyac[d.creditRates.ihtiyac.length - 1];
+    if (last) {
+      var m = (Math.pow(1 + last[1] / 100, 1 / 12) - 1) * 100;
+      var dt = BP.parseDate(last[0]);
+      $('rateHint').innerHTML = 'Bankanın sana söylediği aylık faiz. TCMB\'ye göre ihtiyaç kredisinde ortalama aylık faiz ' + BP.pct(m) + ' (' + BP.dateLabel(dt) + ' haftası, vergiler hariç).';
+    }
+    syncFee();
+    calc();
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>
