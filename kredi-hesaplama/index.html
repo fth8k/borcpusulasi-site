@@ -16,7 +16,7 @@
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <meta name="theme-color" content="#1E5FE0">
 <link rel="stylesheet" href="/css/tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"KKDF ve BSMV nedir?","acceptedAnswer":{"@type":"Answer","text":"Tüketici kredilerinde faiz üzerinden alınan iki vergidir: Kaynak Kullanımı Destekleme Fonu (KKDF) ve Banka ve Sigorta Muameleleri Vergisi (BSMV). Taksitler bu vergiler eklenmiş oranla hesaplanır, bu yüzden bankanın söylediği faizden yüksek bir maliyet çıkar."}},{"@type":"Question","name":"Bankanın söylediği faizle buradaki sonuç neden farklı olabilir?","acceptedAnswer":{"@type":"Answer","text":"Bankalar tahsis ücreti, sigorta ve dosya masrafı gibi kalemleri ayrıca alabilir; bunları \"Masraflar\" bölümüne girersen sonuç netleşir. Kesin tutar için bankanın kredi sözleşmesindeki ödeme planına bak."}},{"@type":"Question","name":"Aylık faiz yerine yıllık faiz biliyorsam ne yapmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Yıllık basit (nominal) faizi 12'ye bölerek aylığa çevirebilirsin. Bankanın söylediği oran yıllık efektif oransa aylığa şu formülle çevirebilirsin: (1 + yıllık)^(1/12) − 1."}},{"@type":"Question","name":"Konut kredisinde neden vergi yok?","acceptedAnswer":{"@type":"Answer","text":"Konut kredilerinde faiz üzerinden KKDF ve BSMV alınmaz. Tahsis ücretinden ise BSMV hâlâ kesilir. Bu hesaplayıcı \"Konut\" seçildiğinde vergileri bu şekilde alır."}},{"@type":"Question","name":"Ödeme planındaki \"faiz + vergi\" ne demek?","acceptedAnswer":{"@type":"Answer","text":"Her taksitin, borcun o ayki bakiyesine işleyen kısmıdır (faiz ve onun üzerindeki vergiler). Taksidin kalanı anaparayı azaltır. Başta faiz payı yüksek, sona doğru düşer."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"KKDF ve BSMV nedir?","acceptedAnswer":{"@type":"Answer","text":"Tüketici kredilerinde faiz üzerinden alınan iki vergidir: Kaynak Kullanımı Destekleme Fonu (KKDF) ve Banka ve Sigorta Muameleleri Vergisi (BSMV). Taksitler bu vergiler eklenmiş oranla hesaplanır, bu yüzden bankanın söylediği faizden yüksek bir maliyet çıkar."}},{"@type":"Question","name":"Bankanın söylediği faizle buradaki sonuç neden farklı olabilir?","acceptedAnswer":{"@type":"Answer","text":"Bankalar tahsis ücreti, sigorta ve dosya masrafı gibi kalemleri ayrıca alabilir; bunları \"Masraflar\" bölümüne girersen sonuç netleşir. Kesin tutar için bankanın kredi sözleşmesindeki ödeme planına bak."}},{"@type":"Question","name":"Aylık faiz yerine yıllık faiz biliyorsam ne yapmalıyım?","acceptedAnswer":{"@type":"Answer","text":"Yıllık basit (nominal) faizi 12'ye bölerek aylığa çevirebilirsin. Bankanın söylediği oran yıllık efektif oransa aylığa şu formülle çevirebilirsin: (1 + yıllık)^(1/12) − 1."}},{"@type":"Question","name":"Konut kredisinde neden vergi yok, bazen var?","acceptedAnswer":{"@type":"Answer","text":"Konut edinimi kredilerinde faiz üzerinden KKDF alınmaz. BSMV istisnası ise kredi kullandığın tarihte adına kayıtlı konutu olmayanlar (ilk konut) için geçerlidir; kayıtlı konutun varsa faiz ve tahsis ücreti üzerinden BSMV alınır. Bankalar bunu sözleşmelerinde belirtir; kendi bankanın uygulaması farklıysa oranları kendin girmek için uygulamayı kullanabilirsin."}},{"@type":"Question","name":"Ödeme planındaki \"faiz + vergi\" ne demek?","acceptedAnswer":{"@type":"Answer","text":"Her taksitin, borcun o ayki bakiyesine işleyen kısmıdır (faiz ve onun üzerindeki vergiler). Taksidin kalanı anaparayı azaltır. Başta faiz payı yüksek, sona doğru düşer."}}]}</script>
 <script data-goatcounter="https://borcpusulasi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -36,6 +36,14 @@
             <button type="button" data-v="konut" aria-pressed="false">Konut</button>
           </div>
           <span class="hint" id="typeHint">Faiz üzerinden KKDF ve BSMV eklenir.</span>
+        </div>
+        <div class="full" id="homeBox" hidden>
+          <label id="lHome">Adına kayıtlı konut var mı?</label>
+          <div class="seg" id="home" role="group" aria-labelledby="lHome">
+            <button type="button" data-v="no" aria-pressed="true">Hayır (ilk konut)</button>
+            <button type="button" data-v="yes" aria-pressed="false">Evet</button>
+          </div>
+          <span class="hint" id="homeHint"></span>
         </div>
         <div>
           <label for="principal">Kredi tutarı (TL)</label>
@@ -57,7 +65,7 @@
           <div>
             <label for="fee">Tahsis ücreti (TL)</label>
             <input id="fee" type="text" inputmode="decimal" data-dec="1" autocomplete="off" placeholder="0">
-            <span class="hint"><label style="display:inline;font-weight:400;font-size:12.5px"><input id="autoFee" type="checkbox"> Otomatik: tutarın binde 5'i + BSMV</label></span>
+            <span class="hint"><label style="display:inline;font-weight:400;font-size:12.5px"><input id="autoFee" type="checkbox"> Otomatik: tutarın binde 5'i (BSMV varsa üstüne)</label></span>
           </div>
           <div>
             <label for="ins">Sigorta (TL)</label>
@@ -91,7 +99,7 @@
     <h2>Nasıl hesaplanır?</h2>
     <p>Bankalar, girdiğin aylık faize <strong>KKDF</strong> ve <strong>BSMV</strong> vergilerini ekler ve sabit taksitli (eşit taksitli) bir plan çıkarır. Taksit bu vergili oran üzerinden hesaplanır:</p>
     <div class="formula">Vergili aylık oran = faiz × (1 + KKDF + BSMV)<br>Taksit = tutar × oran ÷ (1 − (1 + oran)<sup>−vade</sup>)</div>
-    <p>Şu an KKDF <strong><span id="kkdfTxt">%15</span></strong>, BSMV <strong><span id="bsmvTxt">%15</span></strong>. Konut kredilerinde faizden bu vergiler alınmaz; tahsis ücretindeki BSMV ise konutta da alınır. Hesaplayıcı bunu "Konut" seçeneğinde otomatik yapar.</p>
+    <p>Şu an KKDF <strong><span id="kkdfTxt">%15</span></strong>, BSMV <strong><span id="bsmvTxt">%15</span></strong>. Konut edinimi kredilerinde KKDF alınmaz. BSMV ise kredi kullandığın tarihte adına kayıtlı konut yoksa (ilk konut) alınmaz; kayıtlı konut varsa faiz ve tahsis ücreti üzerinden alınır. Hesaplayıcı bunu "Konut" ve "Adına kayıtlı konut var mı?" seçimlerine göre otomatik yapar.</p>
     <p><strong>Yıllık maliyet oranı (YMO)</strong>, faiz, vergiler ve tahsis ücreti dahil kredinin gerçek yıllık bileşik maliyetidir. Sigorta zorunlu olmadığı için bankalar YMO'ya genelde katmaz; sigorta girersen "sigorta dahil" maliyeti ayrıca gösteririz.</p>
 
     <h2>Örnek</h2>
@@ -101,7 +109,7 @@
     <p><strong>KKDF ve BSMV nedir?</strong><br>Tüketici kredilerinde faiz üzerinden alınan iki vergidir: Kaynak Kullanımı Destekleme Fonu (KKDF) ve Banka ve Sigorta Muameleleri Vergisi (BSMV). Taksitler bu vergiler eklenmiş oranla hesaplanır, bu yüzden bankanın söylediği faizden yüksek bir maliyet çıkar.</p>
     <p><strong>Bankanın söylediği faizle buradaki sonuç neden farklı olabilir?</strong><br>Bankalar tahsis ücreti, sigorta ve dosya masrafı gibi kalemleri ayrıca alabilir; bunları "Masraflar" bölümüne girersen sonuç netleşir. Kesin tutar için bankanın kredi sözleşmesindeki ödeme planına bak.</p>
     <p><strong>Aylık faiz yerine yıllık faiz biliyorsam ne yapmalıyım?</strong><br>Yıllık basit (nominal) faizi 12'ye bölerek aylığa çevirebilirsin. Bankanın söylediği oran yıllık efektif oransa aylığa şu formülle çevirebilirsin: (1 + yıllık)^(1/12) − 1.</p>
-    <p><strong>Konut kredisinde neden vergi yok?</strong><br>Konut kredilerinde faiz üzerinden KKDF ve BSMV alınmaz. Tahsis ücretinden ise BSMV hâlâ kesilir. Bu hesaplayıcı "Konut" seçildiğinde vergileri bu şekilde alır.</p>
+    <p><strong>Konut kredisinde neden vergi yok, bazen var?</strong><br>Konut edinimi kredilerinde faiz üzerinden KKDF alınmaz. BSMV istisnası ise kredi kullandığın tarihte adına kayıtlı konutu olmayanlar (ilk konut) için geçerlidir; kayıtlı konutun varsa faiz ve tahsis ücreti üzerinden BSMV alınır. Bankalar bunu sözleşmelerinde belirtir; kendi bankanın uygulaması farklıysa oranları kendin girmek için uygulamayı kullanabilirsin.</p>
     <p><strong>Ödeme planındaki "faiz + vergi" ne demek?</strong><br>Her taksitin, borcun o ayki bakiyesine işleyen kısmıdır (faiz ve onun üzerindeki vergiler). Taksidin kalanı anaparayı azaltır. Başta faiz payı yüksek, sona doğru düşer.</p>
 
     <div class="cta">
@@ -135,19 +143,33 @@
   if (q.get('tutar')) $('principal').value = BP.fmt(BP.num(q.get('tutar')) || 100000);
   if (q.get('faiz')) $('rate').value = String(q.get('faiz')).replace('.', ',');
   if (q.get('vade')) $('term').value = q.get('vade');
+  var home = 'no';
+  // Konut edinimi kredisinde KKDF alınmaz; BSMV ilk konutta (adına kayıtlı konut yok) alınmaz, kayıtlı konut varsa faiz ve tahsis ücreti üzerinden alınır.
+  function kkdfNow() { return type === 'konut' ? 0 : rates.kkdf; }
+  function bsmvNow() { return type === 'konut' && home === 'no' ? 0 : rates.bsmv; }
+  function setHint() {
+    $('homeBox').hidden = type !== 'konut';
+    $('typeHint').textContent = type === 'konut' ? 'Konut edinimi kredisinde KKDF alınmaz.' : 'Faiz üzerinden KKDF ve BSMV eklenir.';
+    $('homeHint').textContent = home === 'yes'
+      ? 'Kredi kullandığın tarihte adına kayıtlı konut varsa faiz ve tahsis ücreti üzerinden BSMV alınır.'
+      : 'Kredi kullandığın tarihte adına kayıtlı konut yoksa faiz ve tahsis ücreti üzerinden BSMV alınmaz.';
+  }
   function setType(v) {
     type = v;
     document.querySelectorAll('#type button').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-v') === v ? 'true' : 'false'); });
-    $('typeHint').textContent = v === 'konut' ? 'Konut kredisinde faiz üzerinden KKDF ve BSMV alınmaz.' : 'Faiz üzerinden KKDF ve BSMV eklenir.';
+    setHint();
+    syncFee();
   }
   BP.seg($('type'), function (v) { setType(v); calc(); });
+  BP.seg($('home'), function (v) { home = v; setHint(); syncFee(); calc(); });
   if (q.get('tur') === 'konut') setType('konut');
 
   function syncFee() {
     var on = $('autoFee').checked, p = BP.num($('principal').value);
     $('fee').disabled = on;
-    if (on && p > 0) $('fee').value = BP.fmt(Math.round(p * 0.005 * (1 + rates.bsmv / 100) * 100) / 100, 2).replace(/,00$/, '');
+    if (on && p > 0) $('fee').value = BP.fmt(Math.round(p * 0.005 * (1 + bsmvNow() / 100) * 100) / 100, 2).replace(/,00$/, '');
   }
+  setHint();
   $('autoFee').addEventListener('change', function () { if (!$('autoFee').checked) $('fee').value = ''; syncFee(); calc(); });
   $('principal').addEventListener('input', syncFee);
 
@@ -162,7 +184,7 @@
     if (n !== Math.floor(n) || n > 360) { res.classList.remove('on'); err.textContent = 'Vade 1 ile 360 ay arasında tam sayı olmalı.'; return; }
     if (r > 30) { res.classList.remove('on'); err.textContent = 'Aylık faiz oranı çok yüksek görünüyor. Yıllık oran girdiysen 12\'ye bölerek aylığa çevir.'; return; }
     if (fee + ins >= p) { res.classList.remove('on'); err.textContent = 'Masraflar kredi tutarından küçük olmalı.'; return; }
-    var k = type === 'konut' ? 0 : rates.kkdf, b = type === 'konut' ? 0 : rates.bsmv;
+    var k = kkdfNow(), b = bsmvNow();
     var L = BP.loan({ principal: p, monthlyRatePercent: r, termMonths: n, kkdfPercent: k, bsmvPercent: b, originationFee: fee, insuranceFee: ins });
     $('aLbl').textContent = 'Aylık taksit';
     $('aBig').textContent = BP.tl(L.installment, 2);
