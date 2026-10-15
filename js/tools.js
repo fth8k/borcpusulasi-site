@@ -1,5 +1,4 @@
-// Borç Pusulası web hesaplayıcıları. Hesaplar uygulamadaki ile aynı mantıktır (lib/loanCalculator.ts, lib/accumulationCalculator.ts).
-// Veri dosyası kullanmaz; her şey tarayıcıda hesaplanır.
+// Borç Pusulası web hesaplayıcıları (Biriktirsem Ne Olur?). Hesap uygulamadaki ile aynı mantıktır (lib/accumulationCalculator.ts); her şey tarayıcıda hesaplanır.
 (function () {
   'use strict';
   var BP = (window.BP = {});
@@ -49,51 +48,6 @@
       }
       try { el.setSelectionRange(i, i); } catch (e) {}
     });
-  };
-
-  /* ---------- Kredi ---------- */
-  function installment(principal, rate, n) {
-    if (rate === 0) return principal / n;
-    var f = Math.pow(1 + rate, n);
-    return (principal * rate * f) / (f - 1);
-  }
-  function pvAnnuity(inst, rate, n) {
-    if (rate === 0) return inst * n;
-    return (inst * (1 - Math.pow(1 + rate, -n))) / rate;
-  }
-  function solveMonthly(inst, net, n) {
-    var lo = 0, hi = 5;
-    for (var i = 0; i < 200; i++) {
-      var mid = (lo + hi) / 2;
-      if (pvAnnuity(inst, mid, n) > net) lo = mid; else hi = mid;
-      if (hi - lo < 1e-9) break;
-    }
-    return (lo + hi) / 2;
-  }
-  // in: principal, monthlyRatePercent, termMonths, kkdfPercent, bsmvPercent, originationFee, insuranceFee
-  BP.loan = function (inp) {
-    var k = inp.kkdfPercent / 100, b = inp.bsmvPercent / 100;
-    var r = (inp.monthlyRatePercent / 100) * (1 + k + b);
-    var inst = installment(inp.principal, r, inp.termMonths);
-    var total = inst * inp.termMonths;
-    var cashCost = total - inp.principal;
-    var interest = cashCost / (1 + k + b);
-    var net = inp.principal - inp.originationFee - inp.insuranceFee;
-    var effM = solveMonthly(inst, net, inp.termMonths);
-    var ymoM = inp.insuranceFee > 0 ? solveMonthly(inst, inp.principal - inp.originationFee, inp.termMonths) : effM;
-    var rows = [], bal = inp.principal;
-    for (var m = 1; m <= inp.termMonths; m++) {
-      var charge = bal * r;
-      var princ = inst - charge;
-      bal = m === inp.termMonths ? 0 : bal - princ;
-      rows.push({ m: m, inst: inst, principal: princ, charge: charge, balance: Math.max(0, bal) });
-    }
-    return {
-      installment: inst, total: total, cashCost: cashCost, interest: interest, taxes: cashCost - interest,
-      net: net, upfront: inp.originationFee + inp.insuranceFee,
-      effectiveAnnual: (Math.pow(1 + effM, 12) - 1) * 100, ymoAnnual: (Math.pow(1 + ymoM, 12) - 1) * 100,
-      taxInclMonthlyPercent: r * 100, rows: rows
-    };
   };
 
   /* ---------- Birikim ---------- */
