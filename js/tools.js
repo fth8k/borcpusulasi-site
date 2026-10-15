@@ -1,6 +1,5 @@
-// Borç Pusulası web hesaplayıcıları. Hesaplar uygulamadaki ile aynı mantıktır:
-//   lib/loanCalculator.ts, lib/accumulationCalculator.ts, lib/propertySaleTax.ts, lib/marketRates.ts
-// Veri (Yİ-ÜFE, vergi parametreleri, KKDF/BSMV, TCMB faizleri) /data/site-data.json dosyasından gelir.
+// Borç Pusulası web hesaplayıcıları. Hesaplar uygulamadaki ile aynı mantıktır (lib/loanCalculator.ts, lib/accumulationCalculator.ts).
+// Veri dosyası kullanmaz; her şey tarayıcıda hesaplanır.
 (function () {
   'use strict';
   var BP = (window.BP = {});
@@ -50,18 +49,6 @@
       }
       try { el.setSelectionRange(i, i); } catch (e) {}
     });
-  };
-
-  /* ---------- Veri ---------- */
-  var dataPromise = null;
-  BP.data = function () {
-    if (!dataPromise) {
-      dataPromise = fetch('/data/site-data.json', { cache: 'no-cache' }).then(function (r) {
-        if (!r.ok) throw new Error('data');
-        return r.json();
-      });
-    }
-    return dataPromise;
   };
 
   /* ---------- Kredi ---------- */
@@ -124,67 +111,6 @@
       }
     }
     return { futureValue: bal, contributed: contributed, growth: bal - contributed, series: pts };
-  };
-
-  /* ---------- Gayrimenkul satış vergisi ---------- */
-  function parseTaxConfig(raw) {
-    return {
-      damgaVergisi: raw.damgaVergisi, deedTaxRate: raw.deedTaxRate, indexationThreshold: raw.indexationThreshold,
-      years: raw.years.map(function (y) {
-        return { year: y.year, exemption: y.exemption, brackets: y.brackets.map(function (p) { return { limit: p[0] === null ? Infinity : p[0], rate: p[1] }; }) };
-      })
-    };
-  }
-  function paramsForYear(cfg, year) {
-    for (var i = 0; i < cfg.years.length; i++) if (cfg.years[i].year === year) return { p: cfg.years[i], estimated: false };
-    var first = cfg.years[0], last = cfg.years[cfg.years.length - 1];
-    return { p: year < first.year ? first : last, estimated: true };
-  }
-  function incomeTaxOn(base, brackets) {
-    var tax = 0, lower = 0;
-    for (var i = 0; i < brackets.length; i++) {
-      if (base <= lower) break;
-      tax += (Math.min(base, brackets[i].limit) - lower) * brackets[i].rate;
-      lower = brackets[i].limit;
-    }
-    return tax;
-  }
-  function sod(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
-  function mIdx(d) { return d.getFullYear() * 12 + d.getMonth(); }
-  // in: acq, sale (Date), purchase, salePrice, saleCosts, loanInterest; ppi: [["2026-09", 123.4], ...]
-  BP.saleTax = function (inp, ppiRows, rawConfig) {
-    var cfg = parseTaxConfig(rawConfig);
-    if (sod(inp.sale) < sod(inp.acq)) return { error: 'Satış tarihi, alış tarihinden önce olamaz.' };
-    var five = new Date(inp.acq.getFullYear() + 5, inp.acq.getMonth(), inp.acq.getDate());
-    var days = Math.max(0, Math.ceil((sod(five) - sod(inp.sale)) / 86400000));
-    var common = { fiveYearDate: five, daysToFiveYears: days };
-    if (sod(inp.sale) >= sod(five)) return Object.assign({ status: 'exempt_5y' }, common);
-
-    var ppi = ppiRows.map(function (r) { var p = r[0].split('-'); return { idx: Number(p[0]) * 12 + Number(p[1]) - 1, v: r[1] }; });
-    var byIdx = {}; ppi.forEach(function (p) { byIdx[p.idx] = p.v; });
-    var first = Math.min.apply(null, ppi.map(function (p) { return p.idx; }));
-    var last = Math.max.apply(null, ppi.map(function (p) { return p.idx; }));
-    var startIdx = mIdx(inp.acq) - 1, endIdx = mIdx(inp.sale) - 1, clamped = false;
-    if (startIdx < first) return { error: 'Bu alış tarihi için Yİ-ÜFE verimiz yok (en erken Eylül 2017 alışı için hesaplanabiliyor).' };
-    if (endIdx > last) { endIdx = last; clamped = true; }
-    var sv = byIdx[startIdx], ev = byIdx[endIdx];
-    if (sv === undefined || ev === undefined) return { error: 'Yİ-ÜFE verisinde eksik ay var, hesaplanamadı.' };
-    var inc = ev / sv - 1;
-    var indexed = inc >= cfg.indexationThreshold;
-    var indexedCost = indexed ? inp.purchase * (ev / sv) : inp.purchase;
-    var deedTax = inp.salePrice * cfg.deedTaxRate, purchaseDeed = inp.purchase * cfg.deedTaxRate;
-    var netGain = inp.salePrice - indexedCost - purchaseDeed - inp.loanInterest - deedTax - inp.saleCosts;
-    var pr = paramsForYear(cfg, inp.sale.getFullYear());
-    var base = Math.max(0, netGain - pr.p.exemption);
-    var incomeTax = base > 0 ? incomeTaxOn(base, pr.p.brackets) : 0;
-    var damga = base > 0 ? cfg.damgaVergisi : 0;
-    var status = netGain <= 0 ? 'no_gain' : base <= 0 ? 'under_exemption' : 'taxable';
-    return Object.assign({
-      status: status, indexed: indexed, indexIncrease: inc, indexedCost: indexedCost, deedTax: deedTax, purchaseDeed: purchaseDeed,
-      netGain: netGain, exemption: pr.p.exemption, taxBase: base, incomeTax: incomeTax, damga: damga, totalTax: incomeTax + damga,
-      first: incomeTax / 2 + damga, second: incomeTax / 2, filingYear: inp.sale.getFullYear() + 1, paramsYear: pr.p.year, estimated: pr.estimated,
-      endIdx: endIdx, startIdx: startIdx, clamped: clamped, cfg: cfg
-    }, common);
   };
 
   /* ---------- Çizgi grafik (SVG) ---------- */
